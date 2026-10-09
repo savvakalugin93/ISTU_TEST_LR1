@@ -158,6 +158,7 @@ for name, numbers, digit in cases:
         lines.extend([
             f'        var error = Assert.Throws<{expected["error"]}>(',
             f"            () => ArrayProcessor.FindByDigit(numbers, {digit}));",
+            f'        TestProtocol.SaveError("{name}", error);',
             f'        Assert.Equal("{expected["parameter"]}", error.ParamName);',
         ])
         saved_expected = expected
@@ -166,6 +167,7 @@ for name, numbers, digit in cases:
         lines.extend([
             "        double[] before = (double[])numbers.Clone();",
             f"        var result = ArrayProcessor.FindByDigit(numbers, {digit});",
+            f'        TestProtocol.SaveSuccess("{name}", result.Elements, result.Sum);',
             f'        double[] expectedElements = {cs_array(expected["elements"])};',
             "        Assert.Equal<double>(expectedElements, result.Elements);",
             f'        Assert.Equal(BigInteger.Parse("{expected["sum"]}"), result.Sum);',
@@ -200,5 +202,6 @@ data_folder.mkdir(exist_ok=True)
     encoding="utf-8")
 
 print("Generated tests:", len(cases))
+
 
 

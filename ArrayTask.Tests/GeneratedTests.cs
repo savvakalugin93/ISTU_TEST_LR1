@@ -15,6 +15,7 @@ public class GeneratedTests
         double[] numbers = null!;
         var error = Assert.Throws<ArgumentNullException>(
             () => ArrayProcessor.FindByDigit(numbers, 2));
+        TestProtocol.SaveError("Flow_01_NullArray", error);
         Assert.Equal("numbers", error.ParamName);
     }
 
@@ -25,6 +26,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d };
         var error = Assert.Throws<ArgumentOutOfRangeException>(
             () => ArrayProcessor.FindByDigit(numbers, -1));
+        TestProtocol.SaveError("Flow_02_DigitBelowZero", error);
         Assert.Equal("digit", error.ParamName);
     }
 
@@ -35,6 +37,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d };
         var error = Assert.Throws<ArgumentOutOfRangeException>(
             () => ArrayProcessor.FindByDigit(numbers, 10));
+        TestProtocol.SaveError("Flow_03_DigitAboveNine", error);
         Assert.Equal("digit", error.ParamName);
     }
 
@@ -45,6 +48,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.PositiveInfinity };
         var error = Assert.Throws<ArgumentException>(
             () => ArrayProcessor.FindByDigit(numbers, 2));
+        TestProtocol.SaveError("Flow_04_Infinity", error);
         Assert.Equal("numbers", error.ParamName);
     }
 
@@ -55,6 +59,7 @@ public class GeneratedTests
         double[] numbers = new double[] {  };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Flow_05_EmptyArray", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -68,6 +73,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Flow_06_MatchInUnits", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 12.8d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("12"), result.Sum);
@@ -81,6 +87,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 7.8d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Flow_07_SingleDigitWithoutMatch", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -94,6 +101,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 21.4d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Flow_08_MatchAfterDivision", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 21.4d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("21"), result.Sum);
@@ -107,6 +115,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 13.8d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Flow_09_MultipleDigitsWithoutMatch", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -120,6 +129,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.0d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Flow_10_ZeroMatchesZero", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 0.0d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -133,6 +143,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 7.8d, 12.8d, -21.4d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Flow_11_SeveralElements", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 12.8d, -21.4d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-9"), result.Sum);
@@ -146,6 +157,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d, double.NaN };
         var error = Assert.Throws<ArgumentException>(
             () => ArrayProcessor.FindByDigit(numbers, 2));
+        TestProtocol.SaveError("Flow_12_LateNaN", error);
         Assert.Equal("numbers", error.ParamName);
     }
 
@@ -156,6 +168,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.0d };
         var error = Assert.Throws<ArgumentOutOfRangeException>(
             () => ArrayProcessor.FindByDigit(numbers, -1));
+        TestProtocol.SaveError("Condition_01_DigitBelowMinimum", error);
         Assert.Equal("digit", error.ParamName);
     }
 
@@ -166,6 +179,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 10.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Condition_02_DigitAtMinimum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 10.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("10"), result.Sum);
@@ -179,6 +193,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 1.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Condition_03_DigitAboveMinimum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 1.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("1"), result.Sum);
@@ -192,6 +207,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 8.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 8);
+        TestProtocol.SaveSuccess("Condition_04_DigitBelowMaximum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 8.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("8"), result.Sum);
@@ -205,6 +221,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 9.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 9);
+        TestProtocol.SaveSuccess("Condition_05_DigitAtMaximum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 9.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("9"), result.Sum);
@@ -218,6 +235,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.0d };
         var error = Assert.Throws<ArgumentOutOfRangeException>(
             () => ArrayProcessor.FindByDigit(numbers, 10));
+        TestProtocol.SaveError("Condition_06_DigitAboveMaximum", error);
         Assert.Equal("digit", error.ParamName);
     }
 
@@ -228,6 +246,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d };
         var error = Assert.Throws<ArgumentOutOfRangeException>(
             () => ArrayProcessor.FindByDigit(numbers, -2147483648));
+        TestProtocol.SaveError("Condition_07_DigitIntMinimum", error);
         Assert.Equal("digit", error.ParamName);
     }
 
@@ -238,6 +257,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d };
         var error = Assert.Throws<ArgumentOutOfRangeException>(
             () => ArrayProcessor.FindByDigit(numbers, 2147483647));
+        TestProtocol.SaveError("Condition_08_DigitIntMaximum", error);
         Assert.Equal("digit", error.ParamName);
     }
 
@@ -248,6 +268,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 3.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 5);
+        TestProtocol.SaveSuccess("Condition_09_CurrentDigitLess", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -261,6 +282,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 5.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 5);
+        TestProtocol.SaveSuccess("Condition_10_CurrentDigitEqual", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 5.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("5"), result.Sum);
@@ -274,6 +296,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 7.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 5);
+        TestProtocol.SaveSuccess("Condition_11_CurrentDigitGreater", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -287,6 +310,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 1.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Condition_12_DigitLoopStops", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -300,6 +324,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 15.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Condition_13_DigitLoopContinues", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 15.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("15"), result.Sum);
@@ -313,6 +338,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 15.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 5);
+        TestProtocol.SaveSuccess("Condition_14_PositiveFinite", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 15.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("15"), result.Sum);
@@ -326,6 +352,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -15.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 5);
+        TestProtocol.SaveSuccess("Condition_15_NegativeFinite", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -15.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-15"), result.Sum);
@@ -339,6 +366,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.NaN };
         var error = Assert.Throws<ArgumentException>(
             () => ArrayProcessor.FindByDigit(numbers, 5));
+        TestProtocol.SaveError("Condition_16_NaN", error);
         Assert.Equal("numbers", error.ParamName);
     }
 
@@ -349,6 +377,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.PositiveInfinity };
         var error = Assert.Throws<ArgumentException>(
             () => ArrayProcessor.FindByDigit(numbers, 5));
+        TestProtocol.SaveError("Condition_17_PositiveInfinity", error);
         Assert.Equal("numbers", error.ParamName);
     }
 
@@ -359,6 +388,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.NegativeInfinity };
         var error = Assert.Throws<ArgumentException>(
             () => ArrayProcessor.FindByDigit(numbers, 5));
+        TestProtocol.SaveError("Condition_18_NegativeInfinity", error);
         Assert.Equal("numbers", error.ParamName);
     }
 
@@ -369,6 +399,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.MinValue };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Equivalence_01_DoubleMinimum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { double.MinValue };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368"), result.Sum);
@@ -382,6 +413,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -123.75d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_02_NegativeInterior", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -123.75d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-123"), result.Sum);
@@ -395,6 +427,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.0d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_03_Zero", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 0.0d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -408,6 +441,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 123.75d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_04_PositiveInterior", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 123.75d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("123"), result.Sum);
@@ -421,6 +455,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.MaxValue };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Equivalence_05_DoubleMaximum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { double.MaxValue };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368"), result.Sum);
@@ -434,6 +469,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -1.7976931348623155e+308d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Equivalence_06_NextAfterMinimum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -1.7976931348623155e+308d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-179769313486231550856124328384506240234343437157459335924404872448581845754556114388470639943126220321960804027157371570809852884964511743044087662767600909594331927728237078876188760579532563768698654064825262115771015791463983014857704008123419459386245141723703148097529108423358883457665451722744025579520"), result.Sum);
@@ -447,6 +483,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 1.7976931348623155e+308d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Equivalence_07_NextBeforeMaximum", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 1.7976931348623155e+308d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("179769313486231550856124328384506240234343437157459335924404872448581845754556114388470639943126220321960804027157371570809852884964511743044087662767600909594331927728237078876188760579532563768698654064825262115771015791463983014857704008123419459386245141723703148097529108423358883457665451722744025579520"), result.Sum);
@@ -460,6 +497,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.Epsilon };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_08_PositiveSubnormal", result.Elements, result.Sum);
         double[] expectedElements = new double[] { double.Epsilon };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -473,6 +511,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -double.Epsilon };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_09_NegativeSubnormal", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -double.Epsilon };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -486,6 +525,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.75d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_10_PositiveFraction", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 0.75d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -499,6 +539,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -0.75d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_11_NegativeFraction", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -0.75d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -512,6 +553,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.75d, -0.75d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 7);
+        TestProtocol.SaveSuccess("Equivalence_12_FractionWithoutMatch", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -525,6 +567,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.9999999999999999d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_13_BelowOne", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 0.9999999999999999d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -538,6 +581,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -0.9999999999999999d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_14_AboveMinusOne", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -0.9999999999999999d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -551,6 +595,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 1.0000000000000002d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Equivalence_15_AboveOne", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 1.0000000000000002d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("1"), result.Sum);
@@ -564,6 +609,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -1.0000000000000002d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Equivalence_16_BelowMinusOne", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -1.0000000000000002d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-1"), result.Sum);
@@ -577,6 +623,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d, 7.1d, 35.4d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_17_MatchFirst", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 12.8d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("12"), result.Sum);
@@ -590,6 +637,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 7.1d, 12.8d, 35.4d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_18_MatchMiddle", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 12.8d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("12"), result.Sum);
@@ -603,6 +651,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 7.1d, 35.4d, 12.8d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_19_MatchLast", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 12.8d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("12"), result.Sum);
@@ -616,6 +665,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 17.8d, 35.4d, 46.2d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_20_NoMatches", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -629,6 +679,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d, 21.4d, -22.6d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_21_AllMatch", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 12.8d, 21.4d, -22.6d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("11"), result.Sum);
@@ -642,6 +693,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 222.8d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_22_RepeatedDigit", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 222.8d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("222"), result.Sum);
@@ -655,6 +707,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 12.8d, 12.8d, 12.8d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_23_RepeatedElements", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 12.8d, 12.8d, 12.8d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("36"), result.Sum);
@@ -668,6 +721,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 21.5d, -21.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_24_Cancellation", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 21.5d, -21.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -681,6 +735,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 101.8d, -20.9d, 3.2d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_25_ZeroInsideInteger", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 101.8d, -20.9d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("81"), result.Sum);
@@ -694,6 +749,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 13.2d, -45.2d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 2);
+        TestProtocol.SaveSuccess("Equivalence_26_DigitOnlyInFraction", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -707,6 +763,7 @@ public class GeneratedTests
         double[] numbers = new double[] {  };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 9);
+        TestProtocol.SaveSuccess("Equivalence_27_EmptyArray", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -720,6 +777,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -90.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 9);
+        TestProtocol.SaveSuccess("Equivalence_28_SingleMatch", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -90.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-90"), result.Sum);
@@ -733,6 +791,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 18.9d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 9);
+        TestProtocol.SaveSuccess("Equivalence_29_SingleWithoutMatch", result.Elements, result.Sum);
         double[] expectedElements = new double[] {  };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("0"), result.Sum);
@@ -746,6 +805,7 @@ public class GeneratedTests
         double[] numbers = new double[] { double.MaxValue, double.MaxValue };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 1);
+        TestProtocol.SaveSuccess("Equivalence_30_SumBeyondDouble", result.Elements, result.Sum);
         double[] expectedElements = new double[] { double.MaxValue, double.MaxValue };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("359538626972463141629054847463408713596141135051689993197834953606314521560057077521179117265533756343080917907028764928468642653778928365536935093407075033972099821153102564152490980180778657888151737016910267884609166473806445896331617118664246696549595652408289446337476354361838599762500808052368249716736"), result.Sum);
@@ -759,6 +819,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 0.5d, 1.5d, 2.5d, 3.5d, 4.5d, 5.5d, 6.5d, 7.5d, 8.5d, 9.5d, 10.5d, 11.5d, 12.5d, 13.5d, 14.5d, 15.5d, 16.5d, 17.5d, 18.5d, 19.5d, 20.5d, 21.5d, 22.5d, 23.5d, 24.5d, 25.5d, 26.5d, 27.5d, 28.5d, 29.5d, 30.5d, 31.5d, 32.5d, 33.5d, 34.5d, 35.5d, 36.5d, 37.5d, 38.5d, 39.5d, 40.5d, 41.5d, 42.5d, 43.5d, 44.5d, 45.5d, 46.5d, 47.5d, 48.5d, 49.5d, 50.5d, 51.5d, 52.5d, 53.5d, 54.5d, 55.5d, 56.5d, 57.5d, 58.5d, 59.5d, 60.5d, 61.5d, 62.5d, 63.5d, 64.5d, 65.5d, 66.5d, 67.5d, 68.5d, 69.5d, 70.5d, 71.5d, 72.5d, 73.5d, 74.5d, 75.5d, 76.5d, 77.5d, 78.5d, 79.5d, 80.5d, 81.5d, 82.5d, 83.5d, 84.5d, 85.5d, 86.5d, 87.5d, 88.5d, 89.5d, 90.5d, 91.5d, 92.5d, 93.5d, 94.5d, 95.5d, 96.5d, 97.5d, 98.5d, 99.5d, 100.5d, 101.5d, 102.5d, 103.5d, 104.5d, 105.5d, 106.5d, 107.5d, 108.5d, 109.5d, 110.5d, 111.5d, 112.5d, 113.5d, 114.5d, 115.5d, 116.5d, 117.5d, 118.5d, 119.5d, 120.5d, 121.5d, 122.5d, 123.5d, 124.5d, 125.5d, 126.5d, 127.5d, 128.5d, 129.5d, 130.5d, 131.5d, 132.5d, 133.5d, 134.5d, 135.5d, 136.5d, 137.5d, 138.5d, 139.5d, 140.5d, 141.5d, 142.5d, 143.5d, 144.5d, 145.5d, 146.5d, 147.5d, 148.5d, 149.5d, 150.5d, 151.5d, 152.5d, 153.5d, 154.5d, 155.5d, 156.5d, 157.5d, 158.5d, 159.5d, 160.5d, 161.5d, 162.5d, 163.5d, 164.5d, 165.5d, 166.5d, 167.5d, 168.5d, 169.5d, 170.5d, 171.5d, 172.5d, 173.5d, 174.5d, 175.5d, 176.5d, 177.5d, 178.5d, 179.5d, 180.5d, 181.5d, 182.5d, 183.5d, 184.5d, 185.5d, 186.5d, 187.5d, 188.5d, 189.5d, 190.5d, 191.5d, 192.5d, 193.5d, 194.5d, 195.5d, 196.5d, 197.5d, 198.5d, 199.5d, 200.5d, 201.5d, 202.5d, 203.5d, 204.5d, 205.5d, 206.5d, 207.5d, 208.5d, 209.5d, 210.5d, 211.5d, 212.5d, 213.5d, 214.5d, 215.5d, 216.5d, 217.5d, 218.5d, 219.5d, 220.5d, 221.5d, 222.5d, 223.5d, 224.5d, 225.5d, 226.5d, 227.5d, 228.5d, 229.5d, 230.5d, 231.5d, 232.5d, 233.5d, 234.5d, 235.5d, 236.5d, 237.5d, 238.5d, 239.5d, 240.5d, 241.5d, 242.5d, 243.5d, 244.5d, 245.5d, 246.5d, 247.5d, 248.5d, 249.5d, 250.5d, 251.5d, 252.5d, 253.5d, 254.5d, 255.5d, 256.5d, 257.5d, 258.5d, 259.5d, 260.5d, 261.5d, 262.5d, 263.5d, 264.5d, 265.5d, 266.5d, 267.5d, 268.5d, 269.5d, 270.5d, 271.5d, 272.5d, 273.5d, 274.5d, 275.5d, 276.5d, 277.5d, 278.5d, 279.5d, 280.5d, 281.5d, 282.5d, 283.5d, 284.5d, 285.5d, 286.5d, 287.5d, 288.5d, 289.5d, 290.5d, 291.5d, 292.5d, 293.5d, 294.5d, 295.5d, 296.5d, 297.5d, 298.5d, 299.5d, 300.5d, 301.5d, 302.5d, 303.5d, 304.5d, 305.5d, 306.5d, 307.5d, 308.5d, 309.5d, 310.5d, 311.5d, 312.5d, 313.5d, 314.5d, 315.5d, 316.5d, 317.5d, 318.5d, 319.5d, 320.5d, 321.5d, 322.5d, 323.5d, 324.5d, 325.5d, 326.5d, 327.5d, 328.5d, 329.5d, 330.5d, 331.5d, 332.5d, 333.5d, 334.5d, 335.5d, 336.5d, 337.5d, 338.5d, 339.5d, 340.5d, 341.5d, 342.5d, 343.5d, 344.5d, 345.5d, 346.5d, 347.5d, 348.5d, 349.5d, 350.5d, 351.5d, 352.5d, 353.5d, 354.5d, 355.5d, 356.5d, 357.5d, 358.5d, 359.5d, 360.5d, 361.5d, 362.5d, 363.5d, 364.5d, 365.5d, 366.5d, 367.5d, 368.5d, 369.5d, 370.5d, 371.5d, 372.5d, 373.5d, 374.5d, 375.5d, 376.5d, 377.5d, 378.5d, 379.5d, 380.5d, 381.5d, 382.5d, 383.5d, 384.5d, 385.5d, 386.5d, 387.5d, 388.5d, 389.5d, 390.5d, 391.5d, 392.5d, 393.5d, 394.5d, 395.5d, 396.5d, 397.5d, 398.5d, 399.5d, 400.5d, 401.5d, 402.5d, 403.5d, 404.5d, 405.5d, 406.5d, 407.5d, 408.5d, 409.5d, 410.5d, 411.5d, 412.5d, 413.5d, 414.5d, 415.5d, 416.5d, 417.5d, 418.5d, 419.5d, 420.5d, 421.5d, 422.5d, 423.5d, 424.5d, 425.5d, 426.5d, 427.5d, 428.5d, 429.5d, 430.5d, 431.5d, 432.5d, 433.5d, 434.5d, 435.5d, 436.5d, 437.5d, 438.5d, 439.5d, 440.5d, 441.5d, 442.5d, 443.5d, 444.5d, 445.5d, 446.5d, 447.5d, 448.5d, 449.5d, 450.5d, 451.5d, 452.5d, 453.5d, 454.5d, 455.5d, 456.5d, 457.5d, 458.5d, 459.5d, 460.5d, 461.5d, 462.5d, 463.5d, 464.5d, 465.5d, 466.5d, 467.5d, 468.5d, 469.5d, 470.5d, 471.5d, 472.5d, 473.5d, 474.5d, 475.5d, 476.5d, 477.5d, 478.5d, 479.5d, 480.5d, 481.5d, 482.5d, 483.5d, 484.5d, 485.5d, 486.5d, 487.5d, 488.5d, 489.5d, 490.5d, 491.5d, 492.5d, 493.5d, 494.5d, 495.5d, 496.5d, 497.5d, 498.5d, 499.5d, 500.5d, 501.5d, 502.5d, 503.5d, 504.5d, 505.5d, 506.5d, 507.5d, 508.5d, 509.5d, 510.5d, 511.5d, 512.5d, 513.5d, 514.5d, 515.5d, 516.5d, 517.5d, 518.5d, 519.5d, 520.5d, 521.5d, 522.5d, 523.5d, 524.5d, 525.5d, 526.5d, 527.5d, 528.5d, 529.5d, 530.5d, 531.5d, 532.5d, 533.5d, 534.5d, 535.5d, 536.5d, 537.5d, 538.5d, 539.5d, 540.5d, 541.5d, 542.5d, 543.5d, 544.5d, 545.5d, 546.5d, 547.5d, 548.5d, 549.5d, 550.5d, 551.5d, 552.5d, 553.5d, 554.5d, 555.5d, 556.5d, 557.5d, 558.5d, 559.5d, 560.5d, 561.5d, 562.5d, 563.5d, 564.5d, 565.5d, 566.5d, 567.5d, 568.5d, 569.5d, 570.5d, 571.5d, 572.5d, 573.5d, 574.5d, 575.5d, 576.5d, 577.5d, 578.5d, 579.5d, 580.5d, 581.5d, 582.5d, 583.5d, 584.5d, 585.5d, 586.5d, 587.5d, 588.5d, 589.5d, 590.5d, 591.5d, 592.5d, 593.5d, 594.5d, 595.5d, 596.5d, 597.5d, 598.5d, 599.5d, 600.5d, 601.5d, 602.5d, 603.5d, 604.5d, 605.5d, 606.5d, 607.5d, 608.5d, 609.5d, 610.5d, 611.5d, 612.5d, 613.5d, 614.5d, 615.5d, 616.5d, 617.5d, 618.5d, 619.5d, 620.5d, 621.5d, 622.5d, 623.5d, 624.5d, 625.5d, 626.5d, 627.5d, 628.5d, 629.5d, 630.5d, 631.5d, 632.5d, 633.5d, 634.5d, 635.5d, 636.5d, 637.5d, 638.5d, 639.5d, 640.5d, 641.5d, 642.5d, 643.5d, 644.5d, 645.5d, 646.5d, 647.5d, 648.5d, 649.5d, 650.5d, 651.5d, 652.5d, 653.5d, 654.5d, 655.5d, 656.5d, 657.5d, 658.5d, 659.5d, 660.5d, 661.5d, 662.5d, 663.5d, 664.5d, 665.5d, 666.5d, 667.5d, 668.5d, 669.5d, 670.5d, 671.5d, 672.5d, 673.5d, 674.5d, 675.5d, 676.5d, 677.5d, 678.5d, 679.5d, 680.5d, 681.5d, 682.5d, 683.5d, 684.5d, 685.5d, 686.5d, 687.5d, 688.5d, 689.5d, 690.5d, 691.5d, 692.5d, 693.5d, 694.5d, 695.5d, 696.5d, 697.5d, 698.5d, 699.5d, 700.5d, 701.5d, 702.5d, 703.5d, 704.5d, 705.5d, 706.5d, 707.5d, 708.5d, 709.5d, 710.5d, 711.5d, 712.5d, 713.5d, 714.5d, 715.5d, 716.5d, 717.5d, 718.5d, 719.5d, 720.5d, 721.5d, 722.5d, 723.5d, 724.5d, 725.5d, 726.5d, 727.5d, 728.5d, 729.5d, 730.5d, 731.5d, 732.5d, 733.5d, 734.5d, 735.5d, 736.5d, 737.5d, 738.5d, 739.5d, 740.5d, 741.5d, 742.5d, 743.5d, 744.5d, 745.5d, 746.5d, 747.5d, 748.5d, 749.5d, 750.5d, 751.5d, 752.5d, 753.5d, 754.5d, 755.5d, 756.5d, 757.5d, 758.5d, 759.5d, 760.5d, 761.5d, 762.5d, 763.5d, 764.5d, 765.5d, 766.5d, 767.5d, 768.5d, 769.5d, 770.5d, 771.5d, 772.5d, 773.5d, 774.5d, 775.5d, 776.5d, 777.5d, 778.5d, 779.5d, 780.5d, 781.5d, 782.5d, 783.5d, 784.5d, 785.5d, 786.5d, 787.5d, 788.5d, 789.5d, 790.5d, 791.5d, 792.5d, 793.5d, 794.5d, 795.5d, 796.5d, 797.5d, 798.5d, 799.5d, 800.5d, 801.5d, 802.5d, 803.5d, 804.5d, 805.5d, 806.5d, 807.5d, 808.5d, 809.5d, 810.5d, 811.5d, 812.5d, 813.5d, 814.5d, 815.5d, 816.5d, 817.5d, 818.5d, 819.5d, 820.5d, 821.5d, 822.5d, 823.5d, 824.5d, 825.5d, 826.5d, 827.5d, 828.5d, 829.5d, 830.5d, 831.5d, 832.5d, 833.5d, 834.5d, 835.5d, 836.5d, 837.5d, 838.5d, 839.5d, 840.5d, 841.5d, 842.5d, 843.5d, 844.5d, 845.5d, 846.5d, 847.5d, 848.5d, 849.5d, 850.5d, 851.5d, 852.5d, 853.5d, 854.5d, 855.5d, 856.5d, 857.5d, 858.5d, 859.5d, 860.5d, 861.5d, 862.5d, 863.5d, 864.5d, 865.5d, 866.5d, 867.5d, 868.5d, 869.5d, 870.5d, 871.5d, 872.5d, 873.5d, 874.5d, 875.5d, 876.5d, 877.5d, 878.5d, 879.5d, 880.5d, 881.5d, 882.5d, 883.5d, 884.5d, 885.5d, 886.5d, 887.5d, 888.5d, 889.5d, 890.5d, 891.5d, 892.5d, 893.5d, 894.5d, 895.5d, 896.5d, 897.5d, 898.5d, 899.5d, 900.5d, 901.5d, 902.5d, 903.5d, 904.5d, 905.5d, 906.5d, 907.5d, 908.5d, 909.5d, 910.5d, 911.5d, 912.5d, 913.5d, 914.5d, 915.5d, 916.5d, 917.5d, 918.5d, 919.5d, 920.5d, 921.5d, 922.5d, 923.5d, 924.5d, 925.5d, 926.5d, 927.5d, 928.5d, 929.5d, 930.5d, 931.5d, 932.5d, 933.5d, 934.5d, 935.5d, 936.5d, 937.5d, 938.5d, 939.5d, 940.5d, 941.5d, 942.5d, 943.5d, 944.5d, 945.5d, 946.5d, 947.5d, 948.5d, 949.5d, 950.5d, 951.5d, 952.5d, 953.5d, 954.5d, 955.5d, 956.5d, 957.5d, 958.5d, 959.5d, 960.5d, 961.5d, 962.5d, 963.5d, 964.5d, 965.5d, 966.5d, 967.5d, 968.5d, 969.5d, 970.5d, 971.5d, 972.5d, 973.5d, 974.5d, 975.5d, 976.5d, 977.5d, 978.5d, 979.5d, 980.5d, 981.5d, 982.5d, 983.5d, 984.5d, 985.5d, 986.5d, 987.5d, 988.5d, 989.5d, 990.5d, 991.5d, 992.5d, 993.5d, 994.5d, 995.5d, 996.5d, 997.5d, 998.5d, 999.5d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 7);
+        TestProtocol.SaveSuccess("Equivalence_31_LongArray", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 7.5d, 17.5d, 27.5d, 37.5d, 47.5d, 57.5d, 67.5d, 70.5d, 71.5d, 72.5d, 73.5d, 74.5d, 75.5d, 76.5d, 77.5d, 78.5d, 79.5d, 87.5d, 97.5d, 107.5d, 117.5d, 127.5d, 137.5d, 147.5d, 157.5d, 167.5d, 170.5d, 171.5d, 172.5d, 173.5d, 174.5d, 175.5d, 176.5d, 177.5d, 178.5d, 179.5d, 187.5d, 197.5d, 207.5d, 217.5d, 227.5d, 237.5d, 247.5d, 257.5d, 267.5d, 270.5d, 271.5d, 272.5d, 273.5d, 274.5d, 275.5d, 276.5d, 277.5d, 278.5d, 279.5d, 287.5d, 297.5d, 307.5d, 317.5d, 327.5d, 337.5d, 347.5d, 357.5d, 367.5d, 370.5d, 371.5d, 372.5d, 373.5d, 374.5d, 375.5d, 376.5d, 377.5d, 378.5d, 379.5d, 387.5d, 397.5d, 407.5d, 417.5d, 427.5d, 437.5d, 447.5d, 457.5d, 467.5d, 470.5d, 471.5d, 472.5d, 473.5d, 474.5d, 475.5d, 476.5d, 477.5d, 478.5d, 479.5d, 487.5d, 497.5d, 507.5d, 517.5d, 527.5d, 537.5d, 547.5d, 557.5d, 567.5d, 570.5d, 571.5d, 572.5d, 573.5d, 574.5d, 575.5d, 576.5d, 577.5d, 578.5d, 579.5d, 587.5d, 597.5d, 607.5d, 617.5d, 627.5d, 637.5d, 647.5d, 657.5d, 667.5d, 670.5d, 671.5d, 672.5d, 673.5d, 674.5d, 675.5d, 676.5d, 677.5d, 678.5d, 679.5d, 687.5d, 697.5d, 700.5d, 701.5d, 702.5d, 703.5d, 704.5d, 705.5d, 706.5d, 707.5d, 708.5d, 709.5d, 710.5d, 711.5d, 712.5d, 713.5d, 714.5d, 715.5d, 716.5d, 717.5d, 718.5d, 719.5d, 720.5d, 721.5d, 722.5d, 723.5d, 724.5d, 725.5d, 726.5d, 727.5d, 728.5d, 729.5d, 730.5d, 731.5d, 732.5d, 733.5d, 734.5d, 735.5d, 736.5d, 737.5d, 738.5d, 739.5d, 740.5d, 741.5d, 742.5d, 743.5d, 744.5d, 745.5d, 746.5d, 747.5d, 748.5d, 749.5d, 750.5d, 751.5d, 752.5d, 753.5d, 754.5d, 755.5d, 756.5d, 757.5d, 758.5d, 759.5d, 760.5d, 761.5d, 762.5d, 763.5d, 764.5d, 765.5d, 766.5d, 767.5d, 768.5d, 769.5d, 770.5d, 771.5d, 772.5d, 773.5d, 774.5d, 775.5d, 776.5d, 777.5d, 778.5d, 779.5d, 780.5d, 781.5d, 782.5d, 783.5d, 784.5d, 785.5d, 786.5d, 787.5d, 788.5d, 789.5d, 790.5d, 791.5d, 792.5d, 793.5d, 794.5d, 795.5d, 796.5d, 797.5d, 798.5d, 799.5d, 807.5d, 817.5d, 827.5d, 837.5d, 847.5d, 857.5d, 867.5d, 870.5d, 871.5d, 872.5d, 873.5d, 874.5d, 875.5d, 876.5d, 877.5d, 878.5d, 879.5d, 887.5d, 897.5d, 907.5d, 917.5d, 927.5d, 937.5d, 947.5d, 957.5d, 967.5d, 970.5d, 971.5d, 972.5d, 973.5d, 974.5d, 975.5d, 976.5d, 977.5d, 978.5d, 979.5d, 987.5d, 997.5d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("157842"), result.Sum);
@@ -772,6 +833,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 1.1963135945524013e+207d, 5918033870.963534d, 7.898000382842762e+65d, 4.977385724331675e-282d, 1.4737323383974817e+289d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 0);
+        TestProtocol.SaveSuccess("Equivalence_Random01_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 1.1963135945524013e+207d, 5918033870.963534d, 7.898000382842762e+65d, 4.977385724331675e-282d, 1.4737323383974817e+289d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("14737323383974817111005808465754101919099461442479408019630299401100607635349572201669392212798365101075656519294895367287279850778862882559926314268757004010456485419440274624621263384671017833787802018244858619634924014116322572382134676330825822863982097857964968860719844675591761430478"), result.Sum);
@@ -785,6 +847,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 1.1504329497809514e+42d, 1.5632320553857276e-163d, 3.66393338331488e+75d, -1.872129268207304e-08d, 1.444353063833036e-264d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 9);
+        TestProtocol.SaveSuccess("Equivalence_Random02_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 1.1504329497809514e+42d, 3.66393338331488e+75d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("3663933383314879840914473454749058883599315098333442908575390190551030562816"), result.Sum);
@@ -798,6 +861,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 3.298976424100639e-142d, -7.90428383577712e+55d, -1.7978834364561342e-16d, 1.776472580604118e-48d, -1.778301186850187e+121d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 6);
+        TestProtocol.SaveSuccess("Equivalence_Random03_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -7.90428383577712e+55d, -1.778301186850187e+121d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-17783011868501869954045334600908285522069310037634470667236349891616508286129747614166446125331579658982003071920935796736"), result.Sum);
@@ -811,6 +875,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -2.0016747657126345e-169d, 1.3604037753404843e-132d, 3.885127748328339e-238d, 5.330002250102949e-269d, 2.887735897974902e+87d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 4);
+        TestProtocol.SaveSuccess("Equivalence_Random04_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 2.887735897974902e+87d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("2887735897974901824258761166494842396618887354898783911036776056569776394172235532730368"), result.Sum);
@@ -824,6 +889,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -1.8060368709802727e+31d, -3.481868362689215e+262d, 4.466315387909742e-193d, 6.476968457084189e-198d, -58.584900550329564d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 5);
+        TestProtocol.SaveSuccess("Equivalence_Random05_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -1.8060368709802727e+31d, -3.481868362689215e+262d, -58.584900550329564d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-34818683626892147414754226701657517951319662036365956584900629786555151588318270781206168404782949765117724141417277336521226673054296879500552362441921843921392738940753190277979763928723113046508039765578886584620845872065727590216857620236141940853865093005370"), result.Sum);
@@ -837,6 +903,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -1.250144457623231e+42d, -4.504043560348897e-63d, -1.6472908112633875e+228d, -7.124406054500557e-271d, -3.2535870728220355e-263d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 9);
+        TestProtocol.SaveSuccess("Equivalence_Random06_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -1.250144457623231e+42d, -1.6472908112633875e+228d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("-1647290811263387538940614124190160623285860101962742288969473533967253227682058779046069172389038068806457225898035934106892471599907269624538823224662514380929017575213198080726668187126615034002643962447729029854116370911854592"), result.Sum);
@@ -850,6 +917,7 @@ public class GeneratedTests
         double[] numbers = new double[] { -2.3902581366476306e-59d, 404018.9108126769d, -2.2185150556547883e-107d, 3.4096841959453776e+299d, 6.677600599624549e+152d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 3);
+        TestProtocol.SaveSuccess("Equivalence_Random07_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 3.4096841959453776e+299d, 6.677600599624549e+152d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("340968419594537756695445961383214128444090812165511596305312558953229685889158519122475059184640642652920855070126809730135361367237537503007861500258410150246954313604173974953127225777578545691969657461939283268417126074155349169873995249338355012963453433589260425580547757276493141672961540882432"), result.Sum);
@@ -863,6 +931,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 2.2682779550706813e-116d, -8.224080148294281e+47d, 0.826362141084216d, -7.842625103469217e-48d, 7.801355321620442e+214d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 4);
+        TestProtocol.SaveSuccess("Equivalence_Random08_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { -8.224080148294281e+47d, 7.801355321620442e+214d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("78013553216204423444073645580751123542036987496859447146402976764102086699739719293430772849448908910643972375296628286902048044690201366783879010241671894058356193255869024217814732480144728612795617078750297980928"), result.Sum);
@@ -876,6 +945,7 @@ public class GeneratedTests
         double[] numbers = new double[] { 1.3950329771660492e+203d, -4.522406373269747e+105d, 8.470733255438805e-132d, 4.6632038808074086e+253d, 3.6335653592491414e-202d };
         double[] before = (double[])numbers.Clone();
         var result = ArrayProcessor.FindByDigit(numbers, 8);
+        TestProtocol.SaveSuccess("Equivalence_Random09_FiniteBinary64", result.Elements, result.Sum);
         double[] expectedElements = new double[] { 1.3950329771660492e+203d, -4.522406373269747e+105d, 4.6632038808074086e+253d };
         Assert.Equal<double>(expectedElements, result.Elements);
         Assert.Equal(BigInteger.Parse("46632038808074086108033995141727030353040039798571934336027265433815478846170697589542981526364054790947069306607541442172085197204977384704348310233180944854890730932914923362497815168915693712337947574320095628113060302120798235228121683125490398789632"), result.Sum);
