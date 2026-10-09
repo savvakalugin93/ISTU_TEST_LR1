@@ -1,0 +1,154 @@
+[
+  {
+    "name": "Flow_01_NullArray",
+    "group": "Flow",
+    "numbers": null,
+    "digit": 2,
+    "expected": {
+      "error": "ArgumentNullException",
+      "parameter": "numbers"
+    }
+  },
+  {
+    "name": "Flow_02_DigitBelowZero",
+    "group": "Flow",
+    "numbers": [
+      "12.8"
+    ],
+    "digit": -1,
+    "expected": {
+      "error": "ArgumentOutOfRangeException",
+      "parameter": "digit"
+    }
+  },
+  {
+    "name": "Flow_03_DigitAboveNine",
+    "group": "Flow",
+    "numbers": [
+      "12.8"
+    ],
+    "digit": 10,
+    "expected": {
+      "error": "ArgumentOutOfRangeException",
+      "parameter": "digit"
+    }
+  },
+  {
+    "name": "Flow_04_Infinity",
+    "group": "Flow",
+    "numbers": [
+      "Infinity"
+    ],
+    "digit": 2,
+    "expected": {
+      "error": "ArgumentException",
+      "parameter": "numbers"
+    }
+  },
+  {
+    "name": "Flow_05_EmptyArray",
+    "group": "Flow",
+    "numbers": [],
+    "digit": 2,
+    "expected": {
+      "elements": [],
+      "sum": "0"
+    }
+  },
+  {
+    "name": "Flow_06_MatchInUnits",
+    "group": "Flow",
+    "numbers": [
+      "12.8"
+    ],
+    "digit": 2,
+    "expected": {
+      "elements": [
+        "12.8"
+      ],
+      "sum": "12"
+    }
+  },
+  {
+    "name": "Flow_07_SingleDigitWithoutMatch",
+    "group": "Flow",
+    "numbers": [
+      "7.8"
+    ],
+    "digit": 2,
+    "expected": {
+      "elements": [],
+      "sum": "0"
+    }
+  },
+  {
+    "name": "Flow_08_MatchAfterDivision",
+    "group": "Flow",
+    "numbers": [
+      "21.4"
+    ],
+    "digit": 2,
+    "expected": {
+      "elements": [
+        "21.4"
+      ],
+      "sum": "21"
+    }
+  },
+  {
+    "name": "Flow_09_MultipleDigitsWithoutMatch",
+    "group": "Flow",
+    "numbers": [
+      "13.8"
+    ],
+    "digit": 2,
+    "expected": {
+      "elements": [],
+      "sum": "0"
+    }
+  },
+  {
+    "name": "Flow_10_ZeroMatchesZero",
+    "group": "Flow",
+    "numbers": [
+      "0.0"
+    ],
+    "digit": 0,
+    "expected": {
+      "elements": [
+        "0.0"
+      ],
+      "sum": "0"
+    }
+  },
+  {
+    "name": "Flow_11_SeveralElements",
+    "group": "Flow",
+    "numbers": [
+      "7.8",
+      "12.8",
+      "-21.4"
+    ],
+    "digit": 2,
+    "expected": {
+      "elements": [
+        "12.8",
+        "-21.4"
+      ],
+      "sum": "-9"
+    }
+  },
+  {
+    "name": "Flow_12_LateNaN",
+    "group": "Flow",
+    "numbers": [
+      "12.8",
+      "NaN"
+    ],
+    "digit": 2,
+    "expected": {
+      "error": "ArgumentException",
+      "parameter": "numbers"
+    }
+  }
+]
