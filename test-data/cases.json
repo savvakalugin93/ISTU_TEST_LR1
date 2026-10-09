@@ -150,5 +150,237 @@
       "error": "ArgumentException",
       "parameter": "numbers"
     }
+  },
+  {
+    "name": "Condition_01_DigitBelowMinimum",
+    "group": "Condition",
+    "numbers": [
+      "0.0"
+    ],
+    "digit": -1,
+    "expected": {
+      "error": "ArgumentOutOfRangeException",
+      "parameter": "digit"
+    }
+  },
+  {
+    "name": "Condition_02_DigitAtMinimum",
+    "group": "Condition",
+    "numbers": [
+      "10.5"
+    ],
+    "digit": 0,
+    "expected": {
+      "elements": [
+        "10.5"
+      ],
+      "sum": "10"
+    }
+  },
+  {
+    "name": "Condition_03_DigitAboveMinimum",
+    "group": "Condition",
+    "numbers": [
+      "1.5"
+    ],
+    "digit": 1,
+    "expected": {
+      "elements": [
+        "1.5"
+      ],
+      "sum": "1"
+    }
+  },
+  {
+    "name": "Condition_04_DigitBelowMaximum",
+    "group": "Condition",
+    "numbers": [
+      "8.5"
+    ],
+    "digit": 8,
+    "expected": {
+      "elements": [
+        "8.5"
+      ],
+      "sum": "8"
+    }
+  },
+  {
+    "name": "Condition_05_DigitAtMaximum",
+    "group": "Condition",
+    "numbers": [
+      "9.5"
+    ],
+    "digit": 9,
+    "expected": {
+      "elements": [
+        "9.5"
+      ],
+      "sum": "9"
+    }
+  },
+  {
+    "name": "Condition_06_DigitAboveMaximum",
+    "group": "Condition",
+    "numbers": [
+      "0.0"
+    ],
+    "digit": 10,
+    "expected": {
+      "error": "ArgumentOutOfRangeException",
+      "parameter": "digit"
+    }
+  },
+  {
+    "name": "Condition_07_DigitIntMinimum",
+    "group": "Condition",
+    "numbers": [
+      "12.8"
+    ],
+    "digit": -2147483648,
+    "expected": {
+      "error": "ArgumentOutOfRangeException",
+      "parameter": "digit"
+    }
+  },
+  {
+    "name": "Condition_08_DigitIntMaximum",
+    "group": "Condition",
+    "numbers": [
+      "12.8"
+    ],
+    "digit": 2147483647,
+    "expected": {
+      "error": "ArgumentOutOfRangeException",
+      "parameter": "digit"
+    }
+  },
+  {
+    "name": "Condition_09_CurrentDigitLess",
+    "group": "Condition",
+    "numbers": [
+      "3.5"
+    ],
+    "digit": 5,
+    "expected": {
+      "elements": [],
+      "sum": "0"
+    }
+  },
+  {
+    "name": "Condition_10_CurrentDigitEqual",
+    "group": "Condition",
+    "numbers": [
+      "5.5"
+    ],
+    "digit": 5,
+    "expected": {
+      "elements": [
+        "5.5"
+      ],
+      "sum": "5"
+    }
+  },
+  {
+    "name": "Condition_11_CurrentDigitGreater",
+    "group": "Condition",
+    "numbers": [
+      "7.5"
+    ],
+    "digit": 5,
+    "expected": {
+      "elements": [],
+      "sum": "0"
+    }
+  },
+  {
+    "name": "Condition_12_DigitLoopStops",
+    "group": "Condition",
+    "numbers": [
+      "1.5"
+    ],
+    "digit": 2,
+    "expected": {
+      "elements": [],
+      "sum": "0"
+    }
+  },
+  {
+    "name": "Condition_13_DigitLoopContinues",
+    "group": "Condition",
+    "numbers": [
+      "15.5"
+    ],
+    "digit": 1,
+    "expected": {
+      "elements": [
+        "15.5"
+      ],
+      "sum": "15"
+    }
+  },
+  {
+    "name": "Condition_14_PositiveFinite",
+    "group": "Condition",
+    "numbers": [
+      "15.5"
+    ],
+    "digit": 5,
+    "expected": {
+      "elements": [
+        "15.5"
+      ],
+      "sum": "15"
+    }
+  },
+  {
+    "name": "Condition_15_NegativeFinite",
+    "group": "Condition",
+    "numbers": [
+      "-15.5"
+    ],
+    "digit": 5,
+    "expected": {
+      "elements": [
+        "-15.5"
+      ],
+      "sum": "-15"
+    }
+  },
+  {
+    "name": "Condition_16_NaN",
+    "group": "Condition",
+    "numbers": [
+      "NaN"
+    ],
+    "digit": 5,
+    "expected": {
+      "error": "ArgumentException",
+      "parameter": "numbers"
+    }
+  },
+  {
+    "name": "Condition_17_PositiveInfinity",
+    "group": "Condition",
+    "numbers": [
+      "Infinity"
+    ],
+    "digit": 5,
+    "expected": {
+      "error": "ArgumentException",
+      "parameter": "numbers"
+    }
+  },
+  {
+    "name": "Condition_18_NegativeInfinity",
+    "group": "Condition",
+    "numbers": [
+      "-Infinity"
+    ],
+    "digit": 5,
+    "expected": {
+      "error": "ArgumentException",
+      "parameter": "numbers"
+    }
   }
 ]

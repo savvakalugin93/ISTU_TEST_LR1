@@ -19,7 +19,28 @@ cases = [
     ("Flow_12_LateNaN", [12.8, math.nan], 2),
 ]
 
-# ADDITIONAL_CASES
+cases.extend([
+    ("Condition_01_DigitBelowMinimum", [0.0], -1),
+    ("Condition_02_DigitAtMinimum", [10.5], 0),
+    ("Condition_03_DigitAboveMinimum", [1.5], 1),
+    ("Condition_04_DigitBelowMaximum", [8.5], 8),
+    ("Condition_05_DigitAtMaximum", [9.5], 9),
+    ("Condition_06_DigitAboveMaximum", [0.0], 10),
+    ("Condition_07_DigitIntMinimum", [12.8], -2147483648),
+    ("Condition_08_DigitIntMaximum", [12.8], 2147483647),
+    ("Condition_09_CurrentDigitLess", [3.5], 5),
+    ("Condition_10_CurrentDigitEqual", [5.5], 5),
+    ("Condition_11_CurrentDigitGreater", [7.5], 5),
+    ("Condition_12_DigitLoopStops", [1.5], 2),
+    ("Condition_13_DigitLoopContinues", [15.5], 1),
+    ("Condition_14_PositiveFinite", [15.5], 5),
+    ("Condition_15_NegativeFinite", [-15.5], 5),
+    ("Condition_16_NaN", [math.nan], 5),
+    ("Condition_17_PositiveInfinity", [math.inf], 5),
+    ("Condition_18_NegativeInfinity", [-math.inf], 5),
+])
+
+# EQUIVALENCE_CASES
 
 
 def expected_result(numbers, digit):
@@ -121,3 +142,4 @@ data_folder.mkdir(exist_ok=True)
     encoding="utf-8")
 
 print("Generated tests:", len(cases))
+

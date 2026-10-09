@@ -149,4 +149,217 @@ public class GeneratedTests
         Assert.Equal("numbers", error.ParamName);
     }
 
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_01_DigitBelowMinimum()
+    {
+        double[] numbers = new double[] { 0.0d };
+        var error = Assert.Throws<ArgumentOutOfRangeException>(
+            () => ArrayProcessor.FindByDigit(numbers, -1));
+        Assert.Equal("digit", error.ParamName);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_02_DigitAtMinimum()
+    {
+        double[] numbers = new double[] { 10.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 0);
+        double[] expectedElements = new double[] { 10.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("10"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_03_DigitAboveMinimum()
+    {
+        double[] numbers = new double[] { 1.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 1);
+        double[] expectedElements = new double[] { 1.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("1"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_04_DigitBelowMaximum()
+    {
+        double[] numbers = new double[] { 8.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 8);
+        double[] expectedElements = new double[] { 8.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("8"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_05_DigitAtMaximum()
+    {
+        double[] numbers = new double[] { 9.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 9);
+        double[] expectedElements = new double[] { 9.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("9"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_06_DigitAboveMaximum()
+    {
+        double[] numbers = new double[] { 0.0d };
+        var error = Assert.Throws<ArgumentOutOfRangeException>(
+            () => ArrayProcessor.FindByDigit(numbers, 10));
+        Assert.Equal("digit", error.ParamName);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_07_DigitIntMinimum()
+    {
+        double[] numbers = new double[] { 12.8d };
+        var error = Assert.Throws<ArgumentOutOfRangeException>(
+            () => ArrayProcessor.FindByDigit(numbers, -2147483648));
+        Assert.Equal("digit", error.ParamName);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_08_DigitIntMaximum()
+    {
+        double[] numbers = new double[] { 12.8d };
+        var error = Assert.Throws<ArgumentOutOfRangeException>(
+            () => ArrayProcessor.FindByDigit(numbers, 2147483647));
+        Assert.Equal("digit", error.ParamName);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_09_CurrentDigitLess()
+    {
+        double[] numbers = new double[] { 3.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 5);
+        double[] expectedElements = new double[] {  };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("0"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_10_CurrentDigitEqual()
+    {
+        double[] numbers = new double[] { 5.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 5);
+        double[] expectedElements = new double[] { 5.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("5"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_11_CurrentDigitGreater()
+    {
+        double[] numbers = new double[] { 7.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 5);
+        double[] expectedElements = new double[] {  };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("0"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_12_DigitLoopStops()
+    {
+        double[] numbers = new double[] { 1.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 2);
+        double[] expectedElements = new double[] {  };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("0"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_13_DigitLoopContinues()
+    {
+        double[] numbers = new double[] { 15.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 1);
+        double[] expectedElements = new double[] { 15.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("15"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_14_PositiveFinite()
+    {
+        double[] numbers = new double[] { 15.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 5);
+        double[] expectedElements = new double[] { 15.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("15"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_15_NegativeFinite()
+    {
+        double[] numbers = new double[] { -15.5d };
+        double[] before = (double[])numbers.Clone();
+        var result = ArrayProcessor.FindByDigit(numbers, 5);
+        double[] expectedElements = new double[] { -15.5d };
+        Assert.Equal<double>(expectedElements, result.Elements);
+        Assert.Equal(BigInteger.Parse("-15"), result.Sum);
+        Assert.Equal<double>(before, numbers);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_16_NaN()
+    {
+        double[] numbers = new double[] { double.NaN };
+        var error = Assert.Throws<ArgumentException>(
+            () => ArrayProcessor.FindByDigit(numbers, 5));
+        Assert.Equal("numbers", error.ParamName);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_17_PositiveInfinity()
+    {
+        double[] numbers = new double[] { double.PositiveInfinity };
+        var error = Assert.Throws<ArgumentException>(
+            () => ArrayProcessor.FindByDigit(numbers, 5));
+        Assert.Equal("numbers", error.ParamName);
+    }
+
+    [Fact]
+    [Trait("Group", "Condition")]
+    public void Condition_18_NegativeInfinity()
+    {
+        double[] numbers = new double[] { double.NegativeInfinity };
+        var error = Assert.Throws<ArgumentException>(
+            () => ArrayProcessor.FindByDigit(numbers, 5));
+        Assert.Equal("numbers", error.ParamName);
+    }
+
 }
