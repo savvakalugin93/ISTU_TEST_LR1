@@ -1,4 +1,4 @@
-name: Tests
+﻿name: Tests
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -8,6 +8,8 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      LR1_PROTOCOL_DIR: ${{ github.workspace }}/test-results/actual-results
 
     steps:
       - name: Получение кода
@@ -18,8 +20,30 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Генерация тестовых данных
+        run: |
+          mkdir -p test-results
+          python tools/generate_tests.py > test-results/generation-log.txt
+          git diff --exit-code -- ArrayTask.Tests/GeneratedTests.cs test-data/cases.json
+
       - name: Восстановление зависимостей
         run: dotnet restore ISTU_TEST_LR1.sln
 
-      - name: Запуск тестов
-        run: dotnet test ISTU_TEST_LR1.sln --configuration Release --no-restore
+      - name: Запуск тестов и измерение покрытия
+        run: dotnet test ISTU_TEST_LR1.sln --configuration Release --no-restore --settings coverage.runsettings --collect "XPlat Code Coverage" --logger "trx;LogFileName=tests.trx" --results-directory test-results
+
+      - name: Проверка результатов и создание протокола
+        run: python tools/check_results.py --results test-results
+
+      - name: Сохранение результатов запуска
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ github.run_number }}
+          path: test-results
+          retention-days: 14
