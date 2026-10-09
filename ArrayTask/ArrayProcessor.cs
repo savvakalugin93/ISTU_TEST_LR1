@@ -34,25 +34,19 @@ public static class ArrayProcessor
 
             BigInteger integerPart = new BigInteger(number);
             BigInteger remainingDigits = BigInteger.Abs(integerPart);
-            bool containsDigit = false;
 
             do
             {
                 if (remainingDigits % 10 == digit)
                 {
-                    containsDigit = true;
+                    elements.Add(number);
+                    sum += integerPart;
                     break;
                 }
 
                 remainingDigits /= 10;
             }
             while (remainingDigits > 0);
-
-            if (containsDigit)
-            {
-                elements.Add(number);
-                sum += integerPart;
-            }
         }
 
         return (elements.ToArray(), sum);
